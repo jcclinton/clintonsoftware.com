@@ -32,7 +32,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">Clinton Software</a>
+          <a class="brand" href="/">Clinton Software</a>
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a id="home">Home</a></li>
@@ -42,29 +42,60 @@
               <li><a id="contact">Contact</a></li>
             </ul>
           </div><!--/.nav-collapse -->
-        </div>
+        </div><!-- .container -->
       </div>
     </div>
 
-    <div class="container">
+    <div class="container" id="home-container">
 
       <h1>Bootstrap starter template</h1>
       <p>Use this document as a way to quick start any new project.<br> All you get is this message and a barebones HTML document.</p>
 
+			<div class="tab-contenta">
+				<div class="tab-panea activea" id="home-content">home</div>
+				<div class="tab-panea" id="resume-content">resume</div>
+				<div class="tab-panea" id="projects-content">projects</div>
+				<div class="tab-panea" id="links-content">links</div>
+				<div class="tab-panea" id="contacts-content">contacts</div>
+			</div>
+
     </div> <!-- /container -->
+
+		<div class="container" id="resume-container" style="display:none;">
+      <h1>Bootstrap</h1>
+      <p>Use this document as a way to quick start any new project.<br> All you get is this message and a barebones HTML document.</p>
+		</div>
 		
     <script src="assets/js/bootstrap-tab.js"></script>
     <script src="assets/js/underscore-min.js"></script>
 
 		<script type="text/javascript">
 			$(function(){
-				var tabs = ['home', 'resume', 'projects', 'links', 'contact'];
-				_.each(tabs, function(tab){
-					$('#'+tab).click(function(e) {
+				var tabs = ['home', 'resume', 'projects', 'links', 'contact']
+					, active = 'home'
+					;
+
+				_.each(tabs, showTab);
+
+				function showTab(tab){
+					$('#'+tab, '.nav').click(function(e) {
+						var el
+							, activeEl
+							;
+
 						e.preventDefault();
 						$(this).tab('show');
+
+						el = $('#'+tab + '-container');
+						el.show();
+
+						activeEl = $('#'+active + '-container');
+						activeEl.hide();
+
+						active = tab;
 					});
-				});
+				}
+
 			});
 		</script>
 
