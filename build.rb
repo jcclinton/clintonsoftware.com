@@ -7,10 +7,11 @@ file = File.open "#{path}wrapper.html", 'rb'
 wrapper = file.read
 
 pages.each do |page|
-	file = File.open "#{path}#{page}.html", 'rb'
-	contents = file.read
+	contents = File.open("#{path}#{page}.html", 'rb').read
 
+	contents = "<div class=\"container\">#{contents}</div>"
 	html = wrapper.gsub /%HTML%/, contents
+
 	list = File.open("#{path}_list.html", 'rb').read
 	list_html = ''
 
