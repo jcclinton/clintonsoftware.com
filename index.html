@@ -35,11 +35,11 @@
           <a class="brand" href="#">Clinton Software</a>
           <div class="nav-collapse">
             <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#resume">Resume</a></li>
-              <li><a href="#links">Links</a></li>
-              <li><a href="#projects">Projects</a></li>
-              <li><a href="#contact">Contact</a></li>
+              <li class="active"><a id="home">Home</a></li>
+              <li><a id="resume">Resume</a></li>
+              <li><a id="projects">Projects</a></li>
+              <li><a id="links">Links</a></li>
+              <li><a id="contact">Contact</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -52,6 +52,21 @@
       <p>Use this document as a way to quick start any new project.<br> All you get is this message and a barebones HTML document.</p>
 
     </div> <!-- /container -->
+		
+    <script src="assets/js/bootstrap-tab.js"></script>
+    <script src="assets/js/underscore-min.js"></script>
+
+		<script type="text/javascript">
+			$(function(){
+				var tabs = ['home', 'resume', 'projects', 'links', 'contact'];
+				_.each(tabs, function(tab){
+					$('#'+tab).click(function(e) {
+						e.preventDefault();
+						$(this).tab('show');
+					});
+				});
+			});
+		</script>
 
   </body>
 </html>
