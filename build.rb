@@ -1,23 +1,21 @@
 
 pages = ['index', 'resume', 'projects', 'links', 'contact']
+main = 'index'
+path = "_templates/"
 
-file = File.open "_templates/wrapper.html", 'rb'
+file = File.open "#{path}wrapper.html", 'rb'
 wrapper = file.read
 
 pages.each do |page|
-	file = File.open "_templates/#{page}.html", 'rb'
+	file = File.open "#{path}#{page}.html", 'rb'
 	contents = file.read
 
 	html = wrapper.gsub /%HTML%/, contents
-	list = File.open("_templates/_list.html", 'rb').read
+	list = File.open("#{path}_list.html", 'rb').read
 	list_html = ''
 
 	pages.each do |p|
-		if p == page
-			sub = 'active'
-		else
-			sub = ''
-		end
+		sub = if p == page then 'active' else '' end
 
 		sub_html = list.gsub /%CLASS%/, sub
 		sub_html.gsub! /%NAME%/, "#{p}.html"
@@ -27,6 +25,8 @@ pages.each do |page|
 	end
 
 	html.gsub! /%LIST%/, list_html
+	title = if page != main then "#{page.capitalize} | " else '' end
+	html.gsub! /%TITLE%/, title
 
 	File.open "#{page}.html", 'w' do |f|
 		f.write html
