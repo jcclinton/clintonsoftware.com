@@ -1,7 +1,7 @@
 # quick and dirty mini-templating engine to convert build website from templates
 
 
-pages = ['index', 'resume', 'projects', 'contact']
+pages = ['index', 'projects', 'resume', 'contact']
 main = 'index'
 path = "_templates/"
 
