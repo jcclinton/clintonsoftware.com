@@ -95,6 +95,11 @@
 			if( !valid ) return;
 
 			$.post(url, data, function(data){
+				if( data.indexOf( 'Error' ) >= 0 ){
+					console.error(data);
+					return;
+				}
+
 				_.each(fields, function(field){
 					$('#form-'+field).val('');
 				});
