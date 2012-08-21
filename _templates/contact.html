@@ -1,6 +1,6 @@
 <h1>Contact Me</h1>
 <br/>
-<p>Currently <span style="color: green;">I am available</span> for new projects.<br/>Contact me to discuss details or if you want to request a quote.</p>
+<p>Currently <strong><span style="color: green;">I am available</span></strong> for new projects.<br/>Contact me to discuss details or to request a quote.</p>
 
 <form>
   <legend>Please Submit the Following Information...</legend>
@@ -14,6 +14,18 @@
   <label>Message</label>
 	<textarea rows="14" id="form-message" class="input-xxlarge"></textarea>
 
+
+	<div class="alert alert-error" style="display: none;" id="alert-error">
+		<button type="button" class="close" id="alert-error-close">×</button>
+		<span id="alert-error-text"></span>
+	</div>
+
+	<div class="alert alert-success" style="display:none;" id="alert-success">
+		<button type="button" class="close" id="alert-success-close">×</button>
+		<strong>Thank You!</strong> Message successfully sent.
+	</div>
+
+
 	<div>
 		<button type="submit" id="submit-button" class="btn btn-primary">Submit</button>
 	</div>
@@ -21,12 +33,35 @@
 
 <script type="text/javascript">
 	$(function(){
+		$('#alert-success-close').click(function(e){
+			$('#alert-success').hide();
+		});
+
+		$('#alert-error-close').click(function(e){
+			$('#alert-error').hide();
+		});
+
+
+
 		$('#submit-button').click(function(e){
 			var fields = ['name', 'email', 'message']
 				, data = {}
 				, url = "contact.php"
 				, valid = true
+				, showSuccess
+				, showError
 				;
+
+			showError = function(data){
+				$('#alert-success').hide();
+				$('#alert-error-text').html(data);
+				$('#alert-error').show();
+			};
+
+			showSuccess = function(){
+				$('#alert-error').hide();
+				$('#alert-success').show();
+			}
 
 			e.preventDefault();
 
@@ -37,7 +72,7 @@
 
 				if( !data[field] ){
 					valid = false;
-					console.error('bad field: ' + field);
+					showError('Invalid data in: ' + field);
 					return;
 				}
 			});
@@ -46,13 +81,15 @@
 
 			$.post(url, data, function(data){
 				if( data.indexOf( 'Error' ) >= 0 ){
-					console.error(data);
+					showError(data);
 					return;
 				}
 
 				_.each(fields, function(field){
 					$('#form-'+field).val('');
 				});
+
+				showSuccess();
 			});
 
 			return false;
