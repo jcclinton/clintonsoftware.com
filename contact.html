@@ -61,8 +61,8 @@
   <label>Your Email</label>
   <input type="email" id="form-email" placeholder="Email">
 
-  <label>Body</label>
-	<textarea rows="14" id="form-body" class="input-xxlarge"></textarea>
+  <label>Message</label>
+	<textarea rows="14" id="form-message" class="input-xxlarge"></textarea>
 
 	<div>
 		<button type="submit" id="submit-button" class="btn btn-primary">Submit</button>
@@ -72,7 +72,7 @@
 <script type="text/javascript">
 	$(function(){
 		$('#submit-button').click(function(e){
-			var fields = ['name', 'email', 'body']
+			var fields = ['name', 'email', 'message']
 				, data = {}
 				, url = "contact.php"
 				, valid = true
@@ -95,7 +95,6 @@
 			if( !valid ) return;
 
 			$.post(url, data, function(data){
-				console.log('successful');
 				_.each(fields, function(field){
 					$('#form-'+field).val('');
 				});
